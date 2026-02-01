@@ -1,0 +1,68 @@
+1. Kebutuhan Sistem
+    Tujuan utama aplikasi: Menyimpan dan mengakses buku dalam format pdf 
+    Siapa pengguna sistem: User dan admin
+    Pola penggunaan user dan admin: 
+        * User mengakses buku dalam format pdf 
+        * Admin menambah dan akses buku dalam format pdf
+
+2. Desain Database 
+    Entitas utama: users, books, admin 
+    Atribut entitas:
+        users {
+            id: PK auto_increment
+            username: unique, not null
+            password: varchar(255)
+            role: enum(admin, user)
+        }
+
+        books {
+            id: PK 
+            title: not null, varchar(255)
+            author: not null, varchar(255)
+            description: not null, text,
+            release_date: date 
+            created_by: FK users(id)
+            path: not null, varchar(255)
+        }
+
+3. Desain Kontrak API 
+    Menentukan endpoint untuk setiap resource:
+        Resource users:
+            POST /users/register --> membuat akun baru
+            POST /users/login --> masuk akun yang sudah ada 
+
+        Resource books: 
+            GET /books/?title=none&author=none --> akses buku berdasarkan parameter title dan author
+            POST /books --> menambah buku 
+
+4. Strukture aplikasi
+    Strukture folder:
+        app/
+            __init__.py 
+            config.py 
+            core/
+                db.py 
+                security.py
+                error_handler.py 
+                logger.py
+            blueprint/
+                __init__.py
+                users/
+                    __init__.py 
+                    routes.py 
+                    service.py 
+                    forms.py 
+                    models.py 
+                
+                books/
+                    __init__.py 
+                    routes.py 
+                    service.py 
+                    forms.py 
+                    models.py 
+        files/
+            uuid.pdf 
+        run.py 
+        .env 
+        .gitignore 
+        Dockerfile 
