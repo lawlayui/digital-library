@@ -43,7 +43,6 @@
             core/
                 db.py 
                 security.py
-                error_handler.py 
                 logger.py
             blueprint/
                 __init__.py
